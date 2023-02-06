@@ -130,7 +130,7 @@ function addGridItem(emoji, timeZone, cityName) {
   icon.classList.add("fa", "fa-remove");
   span.classList.add("emoji");
 
-  h2CityName.textContent = cityName;
+  h2CityName.textContent = `${cityName} `;
   span.textContent = emoji;
   h3Date.textContent = cityTime.format("MMMM	Do YYYY");
   h2Time.innerHTML = cityTime.format("h:mm:ss [<small>]A[</small>]");
@@ -170,7 +170,7 @@ function removeCityFromSelect(cityName) {
 
 function removeGridItem(event) {
   if (event.target.className === "remove") {
-    const cityRemoved = event.target.nextSibling.innerHTML.split("<")[0];
+    const cityRemoved = event.target.nextSibling.innerHTML.split("<")[0].trim();
     const parentElement = event.target.closest("div");
     parentElement.remove();
     cities.get(cityRemoved).displayed = false;
@@ -192,7 +192,7 @@ function updateTimeDate() {
   const gridItems = document.querySelectorAll(".gridItem");
 
   gridItems.forEach((element) => {
-    const city = element.childNodes[1].innerHTML.split("<")[0];
+    const city = element.childNodes[1].innerHTML.split("<")[0].trim();
     const cityTime = moment().tz(cities.get(city).timezone);
     element.childNodes[2].innerHTML = cityTime.format("MMMM	Do YYYY");
     element.childNodes[3].innerHTML = cityTime.format("h:mm:ss [<small>]A[</small>]");
